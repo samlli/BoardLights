@@ -2,7 +2,7 @@
 #include "WS2812_Definitions.h"
 
 #define PIN 4
-#define LED_COUNT 4
+#define LED_COUNT 34
 
 Adafruit_NeoPixel leds = Adafruit_NeoPixel(LED_COUNT, PIN, NEO_GRB + NEO_KHZ800);
 
@@ -12,13 +12,6 @@ void setup(){
   leds.show();
 }
 
-void loop(){
-  fillColor(RED);
-  delay(200);
-  clearLEDs();
-  delay(200);
-}
-
 void clearLEDs(){
   for(int i=0;i<LED_COUNT;i++){
     leds.setPixelColor(i,0);
@@ -26,9 +19,20 @@ void clearLEDs(){
   leds.show();
 }
 
-void fillColor(unsigned long color){
-  for(int i=0;i<=LED_COUNT-1;i++){
+void fillColor(unsigned long color, unsigned short first, unsigned short last, unsigned short interval=1){
+  for(int i=first;i<last;i+=interval){
     leds.setPixelColor(i,color);
+  }
+  leds.show();
+}
+
+void loop(){
+  clearLEDs();
+  for(int i=0;i<4;i++){
+    leds.setPixelColor(i,RED);
+  }
+  for(int i=4;i<34;i+=2){
+    leds.setPixelColor(i,ORANGE);
   }
   leds.show();
 }
